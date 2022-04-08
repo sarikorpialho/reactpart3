@@ -1,7 +1,9 @@
 const express = require('express')
 const app = express()
+const cors = require ('cors')
 
 app.use(express.json())
+app.use(cors())
 
 let persons = [
   {
@@ -15,8 +17,13 @@ let persons = [
     number: "050"
   }
 ]
+
 app.get('/', (req, res) => {
   res.send('<h1>Hello World!</h1>')
+})
+
+app.get('/api/persons', (request, response) => {
+  response.json(persons)
 })
 
 app.get('/api/persons/:id', (request, response) => {
