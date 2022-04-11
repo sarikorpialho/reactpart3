@@ -35,7 +35,21 @@ app.get('/api/persons', (request, response) => {
 })
 
 app.get('/api/persons/:id', (request, response) => {
-  const id = Number(request.params.id)
+  Person.findById(request.params.id)
+  .then(person => {
+    if (person) {
+      response.json(person)
+    } else {
+      response.status(404).end()
+    }
+  })
+  .catch(error => {
+    console.log(error)
+    // ...
+  })
+ 
+})
+  /*const id = Number(request.params.id)
   const person = persons.find(person => person.id === id)
 
   if (person) {
@@ -43,7 +57,7 @@ app.get('/api/persons/:id', (request, response) => {
   } else {
     response.status(404).end()
   }
-})
+})*/
 
 app.delete('/api/persons/:id', (request, response) => {
   Person.findById(request.params.id).then(person => {
@@ -51,12 +65,12 @@ app.delete('/api/persons/:id', (request, response) => {
   })
 })
 
-const generateId = () => {
+/*const generateId = () => {
   const maxId = persons.length > 0
     ? Math.max(...persons.map(n => n.id))
     : 0
   return maxId + 1
-}
+}*/
 
 app.post('/api/persons', (request, response) => {
   const body = request.body
@@ -70,7 +84,7 @@ app.post('/api/persons', (request, response) => {
   const person = new Person( {
     name: body.name,
     number: body.number,
-    id: generateId(),
+    //id: generateId(),
   })
 
   
