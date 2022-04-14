@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 if (process.argv.length<3) {
-  console.log('give password as argument')
+  console.log('password')
   process.exit(1)
 }
 
@@ -31,7 +31,7 @@ Person.find({}).then(result => {
     mongoose.connection.close()
   })
 
-/*person.save().then(result => {
+Person.save().then(result => {
   console.log('person saved!')
   mongoose.connection.close()
-})*/
+})
